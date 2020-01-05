@@ -4,6 +4,7 @@ import com.kodilla.crud.tasks.domain.TaskDTO;
 import com.kodilla.crud.tasks.mapper.TaskMapper;
 import com.kodilla.crud.tasks.service.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,8 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/task")
 public class TaskController
@@ -48,7 +50,7 @@ public class TaskController
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, value = "/createTask", consumes = APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, value = "/createTask", consumes = APPLICATION_JSON_UTF8_VALUE)
     public void createTask(@RequestBody TaskDTO taskDTO)
     {
         service.saveTask(taskMapper.mapToTask(taskDTO));
