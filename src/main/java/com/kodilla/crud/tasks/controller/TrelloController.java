@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -23,7 +24,9 @@ public class TrelloController
 
         List<TrelloBoardDTO> trelloBoards = trelloClient.getTrelloBoards();
 
-        trelloBoards.forEach(trelloBoardDTO -> System.out.println(trelloBoardDTO.getId() + " " + trelloBoardDTO.getName()));
+        trelloBoards.stream().filter(tB -> !tB.getId().isEmpty()
+                && !tB.getName().isEmpty() && tB.getName().contains("Kodilla")).
+                forEach(tB -> System.out.println(tB.getId() + " " + tB.getName()));
 
     }
 }
