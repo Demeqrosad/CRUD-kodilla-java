@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.lang.reflect.Array;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class TrelloClient
@@ -33,18 +33,16 @@ public class TrelloClient
 
     public List<TrelloBoardDTO> getTrelloBoards()
     {
-        URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/" + trelloUser +
+        return Optional.ofNullable(restTemplate.getForObject(
+                this.uriTrelloBoards(), TrelloBoardDTO[].class))
+                .map(Arrays::asList).orElseGet(ArrayList::new);
+    }
+
+    private URI uriTrelloBoards()
+    {
+        return UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/" + trelloUser +
                 "/boards").queryParam("key", trelloAppKey)
                 .queryParam("token", trelloToken)
                 .queryParam("fields", "name,id").build().encode().toUri();
-
-        TrelloBoardDTO[] boardsResponse = restTemplate.getForObject(
-                url, TrelloBoardDTO[].class);
-
-        if (boardsResponse != null)
-        {
-            return Arrays.asList(boardsResponse);
-        }
-        return new ArrayList<>();
     }
 }
