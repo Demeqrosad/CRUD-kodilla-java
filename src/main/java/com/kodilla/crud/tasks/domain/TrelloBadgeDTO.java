@@ -12,14 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TrelloBoardDTO
+public class TrelloBadgeDTO
 {
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("votes")
+    private int votes;
 
-    @JsonProperty("id")
-    private String id;
-
-    @JsonProperty("lists")
-    private List<TrelloListDTO> lists;
+    @JsonProperty("attachmentsByType")
+    private List<TrelloAttachmentByTypeDTO> attachments;
 }
