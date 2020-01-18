@@ -3,6 +3,7 @@ package com.kodilla.crud.tasks.trello.client;
 import com.kodilla.crud.tasks.domain.TrelloBoardDTO;
 import com.kodilla.crud.tasks.trello.config.TrelloConfig;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -28,18 +29,24 @@ public class TrelloClientTest
     @Mock
     private TrelloConfig trelloConfig;
 
+    @Before
+    public void init()
+    {
+        Mockito.when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
+        Mockito.when(trelloConfig.getTrelloAppKey()).thenReturn("test");
+        Mockito.when(trelloConfig.getTrelloToken()).thenReturn("test");
+        Mockito.when(trelloConfig.getTrelloUser()).thenReturn("test");
+    }
+
     @Test
     public void shouldFetchTrelloBoards() throws URISyntaxException
     {
         //Given
-        //Mockito.when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
-        //Mockito.when(trelloConfig.getTrelloAppKey()).thenReturn("test");
-        //Mockito.when(trelloConfig.getTrelloToken()).thenReturn("test");
 
         TrelloBoardDTO[] trelloBoards = new TrelloBoardDTO[1];
         trelloBoards[0] = new TrelloBoardDTO("test_board", "test_id", new ArrayList<>());
 
-        URI uri = new URI("http://test.com/members/demetriusz@kurosad.pl/boards?key=test&token=test&fields=name,id&lists=all");
+        URI uri = new URI("http://test.com/members/test/boards?key=test&token=test&fields=name,id&lists=all");
 
         Mockito.when(restTemplate.getForObject(uri, TrelloBoardDTO[].class)).thenReturn(trelloBoards);
         //When
@@ -56,7 +63,7 @@ public class TrelloClientTest
     public void shouldReturnEmptyList() throws URISyntaxException
     {
         //Given
-        URI uri = new URI("http://test.com/members/demetriusz@kurosad.pl/boards?key=test&token=test&fields=name,id&lists=all");
+        URI uri = new URI("http://test.com/members/test/boards?key=test&token=test&fields=name,id&lists=all");
 
         Mockito.when(restTemplate.getForObject(uri, TrelloBoardDTO[].class)).thenReturn(null);
         //When

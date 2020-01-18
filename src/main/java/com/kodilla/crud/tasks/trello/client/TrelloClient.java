@@ -62,11 +62,10 @@ public class TrelloClient
 
     private URI uriTrelloBoards() throws URISyntaxException
     {
-        return new URI("http://test.com/members/demetriusz@kurosad.pl/boards?key=test&token=test&fields=name,id&lists=all");
-        /*return UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/members/" + trelloConfig.getTrelloUser() + "/boards")
+        return UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/members/" + trelloConfig.getTrelloUser() + "/boards")
                 .queryParam("key", trelloConfig.getTrelloAppKey())
                 .queryParam("token", trelloConfig.getTrelloToken())
                 .queryParam("fields", "name,id")
-                .queryParam("lists", "all").build().encode().toUri();*/
+                .queryParam("lists", "all").build().encode().toUri();
     }
 }
