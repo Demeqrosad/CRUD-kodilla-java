@@ -26,7 +26,6 @@ public class CoreConfiguration implements WebMvcConfigurer
     {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                //.apis(RequestHandlerSelectors.any())
                 .apis(RequestHandlerSelectors
                         .basePackage("com.kodilla.crud.tasks.controller"))
                 .paths(PathSelectors.any())
