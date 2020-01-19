@@ -18,7 +18,6 @@ public class SimpleEmailServiceTest
 
     @Mock
     private JavaMailSender javaMailSender;
-    private String[] cc;
 
     @Test
     public void shouldSendEmail()
