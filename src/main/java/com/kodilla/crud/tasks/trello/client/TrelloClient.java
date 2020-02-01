@@ -1,6 +1,6 @@
 package com.kodilla.crud.tasks.trello.client;
 
-import com.kodilla.crud.tasks.domain.CreatedTrelloCard;
+import com.kodilla.crud.tasks.domain.CreatedTrelloCardDTO;
 import com.kodilla.crud.tasks.domain.TrelloBoardDTO;
 import com.kodilla.crud.tasks.domain.TrelloCardDTO;
 import com.kodilla.crud.tasks.trello.config.TrelloConfig;
@@ -47,7 +47,7 @@ public class TrelloClient
         }
     }
 
-    public CreatedTrelloCard createNewCard(TrelloCardDTO trelloCardDTO)
+    public CreatedTrelloCardDTO createNewCard(TrelloCardDTO trelloCardDTO)
     {
         URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/cards")
                 .queryParam("key", trelloConfig.getTrelloAppKey())
@@ -57,7 +57,7 @@ public class TrelloClient
                 .queryParam("pos", trelloCardDTO.getPos())
                 .queryParam("idList", trelloCardDTO.getListId()).build().encode().toUri();
 
-        return restTemplate.postForObject(url, null, CreatedTrelloCard.class);
+        return restTemplate.postForObject(url, null, CreatedTrelloCardDTO.class);
     }
 
     private URI uriTrelloBoards() throws URISyntaxException

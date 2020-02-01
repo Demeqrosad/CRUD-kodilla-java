@@ -1,10 +1,10 @@
 package com.kodilla.crud.tasks.controller;
 
-import com.kodilla.crud.tasks.domain.CreatedTrelloCard;
+import com.kodilla.crud.tasks.domain.CreatedTrelloCardDTO;
 import com.kodilla.crud.tasks.domain.TrelloBoardDTO;
 import com.kodilla.crud.tasks.domain.TrelloCardDTO;
 import com.kodilla.crud.tasks.service.TrelloService;
-import com.kodilla.crud.tasks.trello.client.TrelloClient;
+import com.kodilla.crud.tasks.trello.facade.TrelloFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,18 +21,18 @@ public class TrelloController
 {
 
     @Autowired
-    private TrelloService trelloService;
+    private TrelloFacade trelloFacade;
 
     @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
     public List<TrelloBoardDTO> getTrelloBoards()
     {
-        return trelloService.fetchTrelloBoards();
+        return trelloFacade.fetchTrelloBoards();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createTrelloCard")
-    public CreatedTrelloCard createTrelloCard(@RequestBody TrelloCardDTO trelloCardDTO)
+    public CreatedTrelloCardDTO createTrelloCard(@RequestBody TrelloCardDTO trelloCardDTO)
     {
-        return trelloService.createTrelloCard(trelloCardDTO);
+        return trelloFacade.createCard(trelloCardDTO);
     }
 }
 
