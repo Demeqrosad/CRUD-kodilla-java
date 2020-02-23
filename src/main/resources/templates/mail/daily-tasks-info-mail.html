@@ -113,10 +113,10 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            Application functionality:
+                                        <p th:if="${show_button}" style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
+                                            Your tasks:
                                         </p>
-                                        <ul th:each="function : ${application_functionality}">
+                                        <ul th:if="${show_button}" th:each="function : ${tasks_list}">
                                             <li th:text="${function}"></li>
                                         </ul>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;"><span th:text="${appName}"></span>'s team</p>

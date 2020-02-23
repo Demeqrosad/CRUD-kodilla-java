@@ -3,6 +3,7 @@ package com.kodilla.crud.tasks.scheduler;
 import com.kodilla.crud.tasks.config.AdminConfig;
 import com.kodilla.crud.tasks.domain.Mail;
 import com.kodilla.crud.tasks.repository.TaskRepository;
+import com.kodilla.crud.tasks.service.MailCreatorService;
 import com.kodilla.crud.tasks.service.SimpleEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,6 +24,9 @@ public class EmailScheduler
     @Autowired
     private AdminConfig adminConfig;
 
+    @Autowired
+    private MailCreatorService mailCreatorService;
+
     private static final String SUBJECT = "Tasks: Once a day email";
 
     @Scheduled(cron = "0 0 10 * * *")
@@ -32,7 +36,7 @@ public class EmailScheduler
                 adminConfig.getAdminMail(),
                 "",
                 SUBJECT,
-                useMessagePattern())
+                mailCreatorService.buildDailyInfoEmail(useMessagePattern()))
         );
     }
 
